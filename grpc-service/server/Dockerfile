@@ -11,8 +11,11 @@ RUN npm install
 # Copy the entire application (including the protos folder)
 COPY . .
 
-# Expose the gRPC server port
-EXPOSE 50051
+# Set environment variable for the port
+ENV PORT=8080
+
+# Expose the port that Cloud Run uses
+EXPOSE 8080
 
 # Start the server
 CMD ["npm", "start"]

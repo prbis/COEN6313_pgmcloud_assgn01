@@ -295,7 +295,8 @@ function main() {
     CountLaureatesByMotivationKeyword,
     GetLaureateDetailsByName
   });
-  const bindAddress = '0.0.0.0:50051';
+  //const bindAddress = '0.0.0.0:50051';
+  const bindAddress = `0.0.0.0:${process.env.PORT || 50051}`;
   server.bindAsync(bindAddress, grpc.ServerCredentials.createInsecure(), () => {
     server.start();
     console.log(`gRPC server running at ${bindAddress}`);
