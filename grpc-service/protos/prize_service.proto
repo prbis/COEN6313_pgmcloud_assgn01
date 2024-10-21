@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package prize;
+
+// Import the Empty message for cases where no parameters are needed
+import "google/protobuf/empty.proto";
+
+// Define the PrizeService
+service PrizeService {
+  // Query 1: Retrieve all prizes in the "chemistry" category
+  rpc GetPrizesByCategory(Empty) returns (PrizesResponse) {}
+
+  // Query 2: Count total laureates in a category and year range
+  rpc CountLaureatesByCategoryAndYearRange(CountLaureatesRequest) returns (CountLaureatesResponse) {}
+
+  // Query 3: Count total laureates by motivation keyword
+  rpc CountLaureatesByMotivationKeyword(MotivationKeywordRequest) returns (CountLaureatesResponse) {}
+
+  // Query 4: Retrieve details of a laureate by their name
+  rpc GetLaureateDetailsByName(LaureateNameRequest) returns (LaureateDetailsResponse) {}
+}
+
+// Messages
+
+// Empty message for queries that don't require parameters
+message Empty {}
+
+// Query 1: Response containing a list of prizes
+message PrizesResponse {
+  repeated Prize prizes = 1;
+}
+
+message Prize {
+  string year = 1;
+  string category = 2;
+  repeated Laureate laureates = 3;
+}
+
+message Laureate {
+  string id = 1;
+  string firstname = 2;
+  string surname = 3;
+  string motivation = 4;
+  string share = 5;
+}
+
+// Query 2: Request and Response for counting laureates
+message CountLaureatesRequest {
+  string category = 1;
+  int32 startYear = 2;
+  int32 endYear = 3;
+}
+
+message CountLaureatesResponse {
+  int32 totalLaureates = 1;
+  repeated LaureateDetails laureates = 2;
+}
+
+message LaureateDetails {
+  string year = 1;
+  string category = 2;
+  string id = 3;
+  string firstname = 4;
+  string surname = 5;
+  string motivation = 6;
+  string share = 7;
+}
+
+// Query 3: Request for counting laureates by motivation keyword
+message MotivationKeywordRequest {
+  string keyword = 1;
+}
+
+// Query 4: Request and Response for laureate details by name
+message LaureateNameRequest {
+  string firstname = 1;
+  string surname = 2;
+}
+
+message LaureateDetailsResponse {
+  repeated LaureateDetails laureates = 1;
+}

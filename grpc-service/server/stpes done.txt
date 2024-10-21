@@ -1,0 +1,6 @@
+gcloud auth login
+
+
+docker tag grpc-redis-server gcr.io/pgmoncloud-test01/grpc-redis-server
+
+pgmoncloud-test01
